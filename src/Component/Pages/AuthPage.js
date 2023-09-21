@@ -1,106 +1,87 @@
-import { useState, useRef } from 'react';
-import '../Pages/AuthPage.css';
+import React, { useState, useRef, useContext } from "react";
+import '../Pages/AuthPage.css'
+import { AuthContext } from "../../Store/Auth-Context";
+import { useHistory } from "react-router-dom";
 
-function AuthForm() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
-  const [isLogin, setIsLogin] = useState(true);
+const AuthPage = () => {
+    const [isLogin, setIsLogin] = useState(true);
+    const [isLoading, setIsLoading] = useState(false)
 
-  const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+    let history = useHistory()
+    const authCtx = useContext(AuthContext)
 
-  const submitHandler = async (event) => {
-    event.preventDefault();
-    const enteredEmail = emailRef.current.value;
-    const enteredPassword = passwordRef.current.value;
-    const enteredConfirmPassword = confirmPasswordRef.current.value;
-
-    if (isLogin) {
-      try {
-        const response = await fetch(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc',
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              email: enteredEmail,
-              password: enteredPassword,
-              returnSecureToken: true,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.error.message);
-        }
-
-        // Handle successful login here
-      } catch (error) {
-        // Handle login errors here
-        console.error('Login failed:', error.message);
-      }
-    } else {
-      try {
-        const response = await fetch(
-          'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc',
-          {
-            method: 'POST',
-            body: JSON.stringify({
-              email: enteredEmail,
-              password: enteredPassword,
-              returnSecureToken: true,
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
-
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.error.message);
-        }
-
-        // Handle successful signup here
-      } catch (error) {
-        // Handle signup errors here
-        console.error('Signup failed:', error.message);
-      }
+    const switchAuthModeHandler = () => {
+        setIsLogin((prevState) => !prevState);
     }
-  };
 
-  return (
-    <section className='section'>
-      <h1 className='h1'>{isLogin ? 'Login' : 'Signup'}</h1>
-      <form className='form' onSubmit={submitHandler}>
-        <div>
-          <label htmlFor='email'>Email</label>
-          <input className='input' type='email' id='email' required ref={emailRef} />
-        </div>
-        <div>
-          <label htmlFor='password'>Password</label>
-          <input className='input' type='password' id='password' required ref={passwordRef} />
-        </div>
-        {!isLogin && (
-          <div>
-            <label htmlFor='confirmPassword'>Confirm Password</label>
-            <input className='input' type='password' id='confirmPassword' required ref={confirmPasswordRef} />
-          </div>
-        )}
-        <div>
-          <button className='button'>{isLogin ? 'Login' : 'Signup'}</button>
-          <button className='button' type='button' onClick={switchAuthModeHandler}>
-            {isLogin ? 'Signup' : 'Login'}
-          </button>
-        </div>
-      </form>
-    </section>
-  );
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const enteredEmail = emailInputRef.current.value;
+        const enteredPassword = passwordInputRef.current.value;
+        let url;
+        setIsLoading(true)
+        if (isLogin) {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc'
+        } else {
+            url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc'
+        }
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            setIsLoading(false)
+            if (res.ok) {
+                return res.json()
+            } else {
+                return res.json().then(data => {
+                    let errormessage = 'Authentication Failed!'
+                    if (data && data.error && data.error.message) {
+                        errormessage = data.error.message
+                    }
+
+                    throw new Error(errormessage)
+
+                });
+            }
+        }).then(data => {
+            authCtx.login(data.idToken);
+            history.replace('/')
+        }).catch(err => {
+            alert(err.message)
+        })
+    }
+
+    return (
+        <section className="auth-form">
+            <h1>{isLogin ? 'LOGIN' : "Sign Up"}</h1>
+            <form onSubmit={submitHandler}>
+                <div>
+                    <label htmlFor="email">Your Email</label>
+                    <input type='email' id="email" required ref={emailInputRef} />
+                </div>
+                <div>
+                    <label htmlFor="password">Your Password</label>
+                    <input type='password' id="password" required ref={passwordInputRef} />
+                </div>
+                <div className="auth-button">
+                    {!isLoading && <button >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
+                    {isLoading && <p>Pending Request</p>}
+                    <button type="button" onClick={switchAuthModeHandler} className="toggle-button">
+                        {isLogin ? 'Create New Account' : 'Login with Existing Account'}
+                    </button>
+                </div>
+            </form>
+        </section>
+    );
 }
 
-export default AuthForm;
+export default AuthPage;
