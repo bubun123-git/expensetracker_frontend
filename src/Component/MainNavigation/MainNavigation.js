@@ -26,6 +26,12 @@ function MainNavigation() {
               Login
             </NavLink>
           </li>
+          {isLoggedIn && (
+            <li>
+              <button>Logout</button>
+            </li>
+          )}
+
         </ul>
       </nav>
     </Router>
