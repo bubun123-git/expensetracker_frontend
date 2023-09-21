@@ -5,6 +5,7 @@ import './App.css';
 import AuthPage from './Component/Pages/AuthPage';
 import WelcomePage from './Component/Pages/Welcome';
 import MainNavigation from './Component/MainNavigation/MainNavigation';
+import completeProfile from './Component/Pages/CompleteProfile';
 
 function Nav() {
   return (
@@ -13,6 +14,7 @@ function Nav() {
         <Switch>
           <Route path="/Home" component={WelcomePage} />
           <Route exact path="/" component={AuthPage} />
+          <Route path="/completeProfile" component={completeProfile} />
         </Switch>
       </div>
     </Router>
