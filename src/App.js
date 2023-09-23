@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import AuthPage from './Component/Pages/AuthPage';
-import WelcomePage from './Component/Pages/Welcome';
+import WelcomePage from './Component/Pages/Profile';
 import MainNavigation from './Component/MainNavigation/MainNavigation';
 import completeProfile from './Component/Pages/CompleteProfile';
 

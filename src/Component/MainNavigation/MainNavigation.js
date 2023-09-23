@@ -1,6 +1,6 @@
 import React from 'react';
 import './MainNavigation.css'
-import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router,  NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Store/Auth-Context';
 

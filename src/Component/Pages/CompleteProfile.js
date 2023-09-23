@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../Pages/CompleteProfile.css'; // Import your CSS file
 import { useContext } from 'react';
 
@@ -8,15 +8,41 @@ import { AuthContext } from '../../Store/Auth-Context';
 function CompleteProfile() {
     const [fullName, setFullName] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
-    const authCtx = useContext(AuthContext)
+    const [fetchedFullName, setFetchedFullName] = useState('');
+    const [fetchedPhotoUrl, setFetchedPhotoUrl] = useState('');
+    const authCtx = useContext(AuthContext);
     const isLoggedIn = authCtx.isLoggedIn;
+    const idToken = authCtx.token;
+
+    // useEffect to fetch user data
+    useEffect(() => {
+        if (isLoggedIn) {
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${idToken}`,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data) {
+                        // Assuming the data structure is { fullName, photoUrl }
+                        setFetchedFullName(data.fullName);
+                        setFetchedPhotoUrl(data.photoUrl);
+                    }
+                })
+                .catch((error) => {
+                    alert('Error fetching user data:', error);
+                });
+        }
+    }, [idToken, isLoggedIn]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (isLoggedIn) {
             const requestData = {
-                idToken: authCtx.token, 
+                idToken: authCtx.token,
                 displayName: fullName,
                 photoUrl: photoUrl,
                 returnSecureToken: true,
@@ -37,7 +63,7 @@ function CompleteProfile() {
                 })
                 .catch((error) => {
                     // Handle any errors that occur during the request
-                    console.error('Error updating user details:', error);
+                    alert('Error updating user details:', error);
                 });
         }
     };
@@ -70,6 +96,13 @@ function CompleteProfile() {
                     <button type="submit">Update</button>
                 </form>
             </div>
+            {fetchedFullName && fetchedPhotoUrl && (
+                <div>
+                    <h2>Fetched User Data</h2>
+                    <p>Full Name: {fetchedFullName}</p>
+                    <p>Photo Profile URL: {fetchedPhotoUrl}</p>
+                </div>
+            )}
         </div>
     );
 }

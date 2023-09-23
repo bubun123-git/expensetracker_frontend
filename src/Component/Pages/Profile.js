@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 
-function WelcomePage () {
+function ProfilePage () {
     const pageStyle = {
         textAlign: 'center',
         backgroundColor: '#f0f0f0',
@@ -25,4 +25,4 @@ function WelcomePage () {
     )
 
 }
-export default WelcomePage;
+export default ProfilePage;
