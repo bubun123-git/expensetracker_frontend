@@ -49,3 +49,17 @@
 .toggle-button:hover {
   background-color: #999;
 }
+.forgot-password-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007BFF; /* Change to your preferred button color */
+  color: white;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px; /* Adds rounded corners to the button */
+}
+
+.forgot-password-button:hover {
+  background-color: #0056b3; /* Change to the hover color you prefer */
+}

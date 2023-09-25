@@ -1,40 +1,47 @@
 import React from 'react';
 import './MainNavigation.css'
-import { BrowserRouter as Router,  NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Store/Auth-Context';
-
 
 function MainNavigation() {
   const authCtx = useContext(AuthContext)
   const isLoggedIn = authCtx.isLoggedIn;
 
   return (
-    <Router>
-      <nav className="nav-bar">
-        <ul>
-          {isLoggedIn && (
-            <li>
-              <NavLink to="/Home" activeClassName="active">
-                Home
-              </NavLink>
-            </li>
-          )}
+    <nav className="nav-bar">
+      <ul>
+        <li>
+          <NavLink exact to="/" activeClassName="active">
+            Login
+          </NavLink>
+        </li>
 
+
+        {isLoggedIn && (
           <li>
-            <NavLink exact to="/" activeClassName="active">
-              Login
+            <NavLink to="/Home" activeClassName="active">
+              Home
             </NavLink>
           </li>
-          {isLoggedIn && (
-            <li>
-              <button>Logout</button>
-            </li>
-          )}
+        )}
 
-        </ul>
-      </nav>
-    </Router>
+
+
+        {isLoggedIn && (
+          <li>
+            <NavLink to='/completeProfile'> Update Profile</NavLink>
+          </li>
+        )}
+
+        {isLoggedIn && (
+          <li>
+            <button>Logout</button>
+          </li>
+        )}
+      </ul>
+    </nav>
   );
 }
+
 export default MainNavigation;

@@ -1,7 +1,8 @@
 import React, { useState, useRef, useContext } from "react";
 import '../Pages/AuthPage.css'
 import { AuthContext } from "../../Store/Auth-Context";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink  } from "react-router-dom";
+
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -29,7 +30,7 @@ const AuthPage = () => {
             alert('Passwords do not match!')
             return;
         }
-        
+
         let url;
         setIsLoading(true)
         if (isLogin) {
@@ -88,6 +89,7 @@ const AuthPage = () => {
                         <input type='password' id='confirmPassword' ref={confirmPasswordInputRef} required />
                     </div>
                 )}
+                <NavLink className ="forgot-password-button " to="/ForgotPassword">Forgot Password ?</NavLink><br/>
                 <div className="auth-button">
                     {!isLoading && <button >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
                     {isLoading && <p>Pending Request</p>}
