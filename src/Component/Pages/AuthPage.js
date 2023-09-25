@@ -9,6 +9,8 @@ const AuthPage = () => {
 
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
+    const confirmPasswordInputRef = useRef();
+
     let history = useHistory()
     const authCtx = useContext(AuthContext)
 
@@ -20,6 +22,14 @@ const AuthPage = () => {
         event.preventDefault();
         const enteredEmail = emailInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
+        const enteredConfirmPassword = confirmPasswordInputRef.current?.value;
+
+        setIsLogin(true);
+        if(!isLogin && enteredPassword !== enteredConfirmPassword) {
+            alert('Passwords do not match!')
+            return;
+        }
+        
         let url;
         setIsLoading(true)
         if (isLogin) {
@@ -72,6 +82,12 @@ const AuthPage = () => {
                     <label htmlFor="password">Your Password</label>
                     <input type='password' id="password" required ref={passwordInputRef} />
                 </div>
+                {!isLogin && (
+                    <div >
+                        <label htmlFor='confirmPassword'>Confirm Password</label>
+                        <input type='password' id='confirmPassword' ref={confirmPasswordInputRef} required />
+                    </div>
+                )}
                 <div className="auth-button">
                     {!isLoading && <button >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
                     {isLoading && <p>Pending Request</p>}
