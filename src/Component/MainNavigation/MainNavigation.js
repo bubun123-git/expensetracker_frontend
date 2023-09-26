@@ -1,12 +1,18 @@
 import React from 'react';
 import './MainNavigation.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom'; 
 import { useContext } from 'react';
 import { AuthContext } from '../../Store/Auth-Context';
 
 function MainNavigation() {
-  const authCtx = useContext(AuthContext)
+  const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
+  const history = useHistory(); 
+
+  const LogoutHandler = () => {
+    authCtx.logout(); 
+    history.push('/'); 
+  }
 
   return (
     <nav className="nav-bar">
@@ -17,7 +23,6 @@ function MainNavigation() {
           </NavLink>
         </li>
 
-
         {isLoggedIn && (
           <li>
             <NavLink to="/Home" activeClassName="active">
@@ -26,17 +31,15 @@ function MainNavigation() {
           </li>
         )}
 
-
-
         {isLoggedIn && (
           <li>
-            <NavLink to='/completeProfile'> Update Profile</NavLink>
+            <NavLink to='/completeProfile'>Update Profile</NavLink>
           </li>
         )}
 
         {isLoggedIn && (
           <li>
-            <button>Logout</button>
+            <button onClick={LogoutHandler}>Logout</button>
           </li>
         )}
       </ul>
