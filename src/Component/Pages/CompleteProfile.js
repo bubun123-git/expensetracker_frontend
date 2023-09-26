@@ -15,7 +15,7 @@ function CompleteProfile() {
     // useEffect to fetch user data
     useEffect(() => {
         if (isLoggedIn) {
-            fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc', {  
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${idToken}`,
@@ -47,30 +47,27 @@ function CompleteProfile() {
             };
 
             // Make the API request to update user details
-            fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc', { 
+            fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBzW0t8Ep_cs-0uc5MmeH1RwgplsSILTnc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestData),
             })
-            .then((response) => {
-                if (response.ok) {
-                  console.log("User details updated successfully");
-                  
-                } else {
-                  console.log("User details update failed");
-                  
-                }
-                return response.json();
-              })
-              .then((data) => {
-                console.log(data);
-              })
-              .catch((error) => {
-                console.log("Error occurred while updating user details", error);
-              });
-          
+                .then((response) => {
+                    if (response.ok) {
+                        console.log("User details updated successfully");
+                    } else {
+                        console.log("User details update failed");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((error) => {
+                    console.log("Error occurred while updating user details", error);
+                });
         }
     };
 
@@ -78,14 +75,14 @@ function CompleteProfile() {
         <div className="container">
             <h1>Winners Never Quit, Quitters Never Win</h1>
             <div>
-                <form >
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="fullName">Full Name:</label>
                     <input
                         type="text"
                         id="fullName"
                         name="fullName"
                         placeholder="Enter your full name"
-                        value={fullName}
+                        value={fetchedFullName || fullName} // Use fetched data if available
                         onChange={(e) => setFullName(e.target.value)}
                     />
 
@@ -95,18 +92,18 @@ function CompleteProfile() {
                         id="photoUrl"
                         name="photoUrl"
                         placeholder="Enter your photo profile URL"
-                        value={photoUrl}
+                        value={fetchedPhotoUrl || photoUrl} // Use fetched data if available
                         onChange={(e) => setPhotoUrl(e.target.value)}
                     />
 
-                    <button onSubmit={handleSubmit} type="submit">Update</button>
+                    <button type="submit">Update</button>
                 </form>
             </div>
             {fetchedFullName && fetchedPhotoUrl && (
                 <div>
                     <h2>Fetched User Data</h2>
-                    <p>Full Name: {setFullName}</p>
-                    <p>Photo Profile URL: {setPhotoUrl}</p>
+                    <p>Full Name: {fetchedFullName}</p>
+                    <p>Photo Profile URL: {fetchedPhotoUrl}</p>
                 </div>
             )}
         </div>

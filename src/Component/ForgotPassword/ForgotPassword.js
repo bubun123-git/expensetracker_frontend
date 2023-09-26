@@ -52,7 +52,7 @@ function ForgotPassword() {
         {error && <p style={{color:"red",textAlign:"center"}}>{error}</p>}
         <p style={{textAlign:"center",fontWeight:"bold"}} >
           <NavLink to='/'>
-            Allready a User?
+            Already a User?
             <b style={{color:"red"}}  >Login</b>
             </NavLink>
         </p>
