@@ -7,6 +7,7 @@ import WelcomePage from './Component/Pages/Profile';
 import MainNavigation from './Component/MainNavigation/MainNavigation';
 import completeProfile from './Component/Pages/CompleteProfile';
 import ForgotPassword from './Component/ForgotPassword/ForgotPassword';
+import StartingPAge from './Component/StartingPage/StartingPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/" component={AuthPage} />
           <Route path="/completeProfile" component={completeProfile} />
           <Route path="/ForgotPassword" component={ForgotPassword} />
+          <Route path="/startingpage" component={StartingPAge} />
         </Switch>
       </>
     </Router>

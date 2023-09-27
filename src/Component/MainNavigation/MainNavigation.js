@@ -1,17 +1,17 @@
 import React from 'react';
 import './MainNavigation.css'
-import { NavLink, useHistory } from 'react-router-dom'; 
+import { NavLink, useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../Store/Auth-Context';
 
 function MainNavigation() {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
-  const history = useHistory(); 
+  const history = useHistory();
 
   const LogoutHandler = () => {
-    authCtx.logout(); 
-    history.push('/'); 
+    authCtx.logout();
+    history.push('/');
   }
 
   return (
@@ -22,6 +22,11 @@ function MainNavigation() {
             Login
           </NavLink>
         </li>
+        {isLoggedIn && (
+          <li>
+            <NavLink to='/startingpage'>Expenses</NavLink>
+          </li>
+        )}
 
         {isLoggedIn && (
           <li>
