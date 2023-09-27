@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../StartingPage/StartingPage.css";
 
+
 function StartingPAge() {
     const [enteredExpense, setEnteredExpense] = useState("");
     const [enteredMoney, setEnteredMoney] = useState("");
@@ -70,12 +71,12 @@ function StartingPAge() {
                         placeholder="Enter your description"
                         className={styles.input}
                     />
-                </div>
+                </div><br/>
                 <div className={styles.formGroup}>
                     <label htmlFor="category" className={styles.label}>
                         Category
                     </label>
-                    <select id="category" name="category" className={styles.select} value={selectedCategory}
+                    <select id="category" name="category" class="form-select" multiple aria-label="Multiple select example" value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="food">Food</option>
                         <option value="entertainment">Entertainment</option>
@@ -83,7 +84,7 @@ function StartingPAge() {
                         <option value="other">Other</option>
                     </select>
                 </div><br />
-                <button type="submit" className={styles.actionButton}>
+                <button type="submit" class="btn btn-success" value="Submit">
                     Add Expense
                 </button>
             </form>
