@@ -151,7 +151,9 @@ function StartingPAge() {
                             <strong>Title:</strong> {expense.title},&nbsp;
                             <strong>Amount Spent:</strong> {expense.money},&nbsp;
                             <strong>Description:</strong> {expense.description},&nbsp;
-                            <strong>Category:</strong> {expense.category}
+                            <strong>Category:</strong> {expense.category}<br/>
+                            <button type="button" class="btn btn-warning">Edit</button>{'   '}
+                            <button type="button" class="btn btn-danger">Delete</button>
                         </li>
                     ))}
                 </ul>
