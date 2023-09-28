@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../StartingPage/StartingPage.css";
+import { useEffect } from "react";
 
 
 function StartingPAge() {
@@ -8,23 +9,70 @@ function StartingPAge() {
     const [enteredDescription, setEnteredDescription] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("food");
     const [expenses, setExpenses] = useState([]);
+    
+    const enteredEmail = localStorage.getItem('email');
+    const updatedEmail = enteredEmail ? enteredEmail.replace('@', '').replace('.', '') : '';
 
-    const handleFormSubmit = (e) => {
+    useEffect(() => {
+        const fetchExpenses = async () => {
+            try {
+                const response = await fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com/user/${updatedEmail}.json`);
+                if (!response.ok) {
+                    throw new Error('Something went wrong!');
+                }
+                const data = await response.json();
+                if (data) {
+                    const loadedExpenses = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    }));
+                    setExpenses(loadedExpenses);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+    
+        fetchExpenses();
+    }, [updatedEmail]);
+
+    function handleFormSubmit(e) {
         e.preventDefault();
-        // Add your form submission logic here
+
         const newExpense = {
             title: enteredExpense,
             money: enteredMoney,
             description: enteredDescription,
             category: selectedCategory,
-        }
-        setExpenses([...expenses, newExpense]);
+        };
 
-        // Clear the input fields after adding the expense
-        setEnteredExpense("");
-        setEnteredMoney("");
-        setEnteredDescription("");
-    };
+        fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com//user/${updatedEmail}.json`, {
+            method: 'POST',
+            body: JSON.stringify(newExpense),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Something went wrong!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+
+                setExpenses([...expenses, newExpense]);
+                // Clear the input fields after adding the expense
+                setEnteredExpense("");
+                setEnteredMoney("");
+                setEnteredDescription("");
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
 
     return (
         <div className={styles.container}>
@@ -71,20 +119,27 @@ function StartingPAge() {
                         placeholder="Enter your description"
                         className={styles.input}
                     />
-                </div><br/>
+                </div>
+                <br />
                 <div className={styles.formGroup}>
                     <label htmlFor="category" className={styles.label}>
                         Category
                     </label>
-                    <select id="category" name="category" class="form-select" multiple aria-label="Multiple select example" value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}>
+                    <select
+                        id="category"
+                        name="category"
+                        className="form-select"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
                         <option value="food">Food</option>
                         <option value="entertainment">Entertainment</option>
                         <option value="travel">Travel</option>
                         <option value="other">Other</option>
                     </select>
-                </div><br />
-                <button type="submit" class="btn btn-success" value="Submit">
+                </div>
+                <br />
+                <button type="submit" className="btn btn-success">
                     Add Expense
                 </button>
             </form>
