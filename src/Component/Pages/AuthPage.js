@@ -91,9 +91,9 @@ const AuthPage = () => {
                 )}
                 <NavLink className ="forgot-password-button " to="/ForgotPassword">Forgot Password ?</NavLink><br/>
                 <div className="auth-button">
-                    {!isLoading && <button >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
+                    {!isLoading && <button class="btn btn-warning" >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
                     {isLoading && <p>Pending Request</p>}
-                    <button type="button" onClick={switchAuthModeHandler} className="toggle-button">
+                    <button type="button" class="btn btn-warning" onClick={switchAuthModeHandler}>
                         {isLogin ? 'Create New Account' : 'Login with Existing Account'}
                     </button>
                 </div>

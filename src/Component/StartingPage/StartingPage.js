@@ -9,7 +9,8 @@ function StartingPAge() {
     const [enteredDescription, setEnteredDescription] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("food");
     const [expenses, setExpenses] = useState([]);
-    
+    const [editMode, setEditMode] = useState(null);
+
     const enteredEmail = localStorage.getItem('email');
     const updatedEmail = enteredEmail ? enteredEmail.replace('@', '').replace('.', '') : '';
 
@@ -32,51 +33,134 @@ function StartingPAge() {
                 console.log(error);
             }
         };
-    
+
         fetchExpenses();
     }, [updatedEmail]);
 
-    function handleFormSubmit(e) {
+     function handleFormSubmit(e) {
         e.preventDefault();
 
-        const newExpense = {
-            title: enteredExpense,
-            money: enteredMoney,
-            description: enteredDescription,
-            category: selectedCategory,
-        };
+        if (editMode !== null) {
+            // Handle editing of an existing expense
+            const updatedExpense = {
+                title: enteredExpense,
+                money: enteredMoney,
+                description: enteredDescription,
+                category: selectedCategory,
+            };
 
-        fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com//user/${updatedEmail}.json`, {
-            method: 'POST',
-            body: JSON.stringify(newExpense),
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            const expenseId = expenses[editMode].id;
+
+            fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com/user/${updatedEmail}/${expenseId}.json`, {
+                method: 'PUT',
+                body: JSON.stringify(updatedExpense),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong!');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+
+                    // Update the expenses list with the edited expense
+                    const updatedExpenses = [...expenses];
+                    updatedExpenses[editMode] = updatedExpense;
+                    setExpenses(updatedExpenses);
+
+                    // Clear the edit mode
+                    setEditMode(null);
+
+                    // Clear the input fields after editing the expense
+                    setEnteredExpense("");
+                    setEnteredMoney("");
+                    setEnteredDescription("");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else {
+            // Handle adding a new expense
+            const newExpense = {
+                title: enteredExpense,
+                money: enteredMoney,
+                description: enteredDescription,
+                category: selectedCategory,
+            };
+
+            fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com/user/${updatedEmail}.json`, {
+                method: 'POST',
+                body: JSON.stringify(newExpense),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Something went wrong!');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+
+                    // Update the expenses list with the new expense
+                    setExpenses([...expenses, newExpense]);
+
+                    // Clear the input fields after adding the expense
+                    setEnteredExpense("");
+                    setEnteredMoney("");
+                    setEnteredDescription("");
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }
+
+    function handleExpenseDelete(id) {
+        fetch(`https://expense-tracker-8d0b3-default-rtdb.firebaseio.com/user/${updatedEmail}/${id}.json`, {
+            method: 'DELETE',
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Something went wrong!');
+                    throw new Error('Something went wrong while deleting the expense');
                 }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
 
-                setExpenses([...expenses, newExpense]);
-                // Clear the input fields after adding the expense
-                setEnteredExpense("");
-                setEnteredMoney("");
-                setEnteredDescription("");
+                // Remove the deleted expense from the expenses list
+                setExpenses(expenses.filter(expense => expense.id !== id));
             })
             .catch(error => {
                 console.log(error);
             });
     }
 
-
+    function handleEditClick(index) {
+        if (index >= 0 && index < expenses.length) {
+          // Check if the index is within bounds
+      
+          // Set the edit mode to the index of the expense you want to edit
+          setEditMode(index);
+      
+          // Populate the form fields with the data of the expense you want to edit
+          const expenseToEdit = expenses[index];
+          if (expenseToEdit) {
+            setEnteredExpense(expenseToEdit.title || "");
+            setEnteredMoney(expenseToEdit.money || "");
+            setEnteredDescription(expenseToEdit.description || "");
+            setSelectedCategory(expenseToEdit.category || "");
+          }
+        }
+      }
+      
+    
     return (
         <div className={styles.container}>
-            <h1 className="fs-title">EXPENSES</h1>
+            <h1>EXPENSES</h1>
             <form className={styles.form} onSubmit={handleFormSubmit}>
                 <div className={styles.formGroup}>
                     <label htmlFor="title" className={styles.label}>
@@ -144,16 +228,16 @@ function StartingPAge() {
                 </button>
             </form>
             <div>
-                <h2 className="fs-title">Expenses Added</h2>
+                <h2 >Expenses Added</h2>
                 <ul>
                     {expenses.map((expense, index) => (
                         <li key={index}>
                             <strong>Title:</strong> {expense.title},&nbsp;
                             <strong>Amount Spent:</strong> {expense.money},&nbsp;
                             <strong>Description:</strong> {expense.description},&nbsp;
-                            <strong>Category:</strong> {expense.category}<br/>
-                            <button type="button" class="btn btn-warning">Edit</button>{'   '}
-                            <button type="button" class="btn btn-danger">Delete</button>
+                            <strong>Category:</strong> {expense.category}<br />
+                            <button onClick={() => handleEditClick(index)} type="button" class="btn btn-warning">Edit</button>{'   '}
+                            <button onClick={() => handleExpenseDelete(expense.id)} type="button" class="btn btn-danger">Delete</button>
                         </li>
                     ))}
                 </ul>
