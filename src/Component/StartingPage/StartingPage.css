@@ -192,3 +192,47 @@ body {
     background: #C5C5F1;
     text-decoration: none;
 }
+
+.form {
+    max-width: 400px; /* Set the maximum width of the form */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px;
+    border: 10px solid #ccc; /* Add a border around the form */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  }
+  
+  .formGroup {
+    margin-bottom: 20px; /* Add space between form groups */
+  }
+  
+  .label {
+    display: block; /* Display labels on separate lines */
+    font-weight: bold; /* Make labels bold */
+  }
+  
+  .input {
+    width: 100%; /* Make the input fields take up the full width of their container */
+    padding: 10px;
+    border: 1px solid #ccc; /* Add a border around input fields */
+    border-radius: 5px; /* Add rounded corners to input fields */
+  }
+  
+  /* Additional styling for the button */
+  .btn-success {
+    background-color: #4CAF50; /* Set the button's background color */
+    color: white; /* Set the text color to white */
+    padding: 10px 20px; /* Add padding to the button */
+    border: none; /* Remove the button border */
+    border-radius: 5px; /* Add rounded corners to the button */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+  }
+  
+  /* Styling for the select element */
+  .form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

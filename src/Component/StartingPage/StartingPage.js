@@ -161,7 +161,7 @@ function StartingPAge() {
     return (
         <div className={styles.container}>
             <h1>EXPENSES</h1>
-            <form className={styles.form} onSubmit={handleFormSubmit}>
+            <form className="form" onSubmit={handleFormSubmit}>
                 <div className={styles.formGroup}>
                     <label htmlFor="title" className={styles.label}>
                         Expense Title
