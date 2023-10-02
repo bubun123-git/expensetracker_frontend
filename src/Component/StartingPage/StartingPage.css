@@ -236,3 +236,52 @@ body {
     border-radius: 5px;
   }
   
+  /* In your CSS file */
+.expenses-list {
+  margin-top: 20px; /* Add space at the top of the list */
+}
+
+.expense-item {
+  border: 1px solid #ccc; /* Add a border around each expense item */
+  border-radius: 5px; /* Add rounded corners */
+  padding: 10px; /* Add padding inside each item */
+  margin-bottom: 10px; /* Add space between items */
+}
+
+.expense-details {
+  margin-bottom: 10px; /* Add space between details and buttons */
+}
+
+/* Styling for Edit and Delete buttons */
+.btn-warning, .btn-danger {
+  padding: 5px 10px; /* Add padding to the buttons */
+  margin-right: 10px; /* Add space between the buttons */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+
+
+
+/* In your CSS file */
+.expenses-list {
+    margin-top: 20px; /* Add space at the top of the list */
+  }
+  
+  .expense-item {
+    border: 5px solid #ccc; /* Add a border around each expense item */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 10px; /* Add padding inside each item */
+    margin-bottom: 10px; /* Add space between items */
+  }
+  
+  .expense-details {
+    margin-bottom: 10px; /* Add space between details and buttons */
+  }
+  
+  /* Styling for Edit and Delete buttons */
+  .btn-warning, .btn-danger {
+    padding: 5px 10px; /* Add padding to the buttons */
+    margin-right: 10px; /* Add space between the buttons */
+    cursor: pointer; /* Change the cursor to a pointer on hover */
+  }
+  

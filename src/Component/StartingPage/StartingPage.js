@@ -37,7 +37,7 @@ function StartingPAge() {
         fetchExpenses();
     }, [updatedEmail]);
 
-     function handleFormSubmit(e) {
+    function handleFormSubmit(e) {
         e.preventDefault();
 
         if (editMode !== null) {
@@ -141,23 +141,23 @@ function StartingPAge() {
 
     function handleEditClick(index) {
         if (index >= 0 && index < expenses.length) {
-          // Check if the index is within bounds
-      
-          // Set the edit mode to the index of the expense you want to edit
-          setEditMode(index);
-      
-          // Populate the form fields with the data of the expense you want to edit
-          const expenseToEdit = expenses[index];
-          if (expenseToEdit) {
-            setEnteredExpense(expenseToEdit.title || "");
-            setEnteredMoney(expenseToEdit.money || "");
-            setEnteredDescription(expenseToEdit.description || "");
-            setSelectedCategory(expenseToEdit.category || "");
-          }
+            // Check if the index is within bounds
+
+            // Set the edit mode to the index of the expense you want to edit
+            setEditMode(index);
+
+            // Populate the form fields with the data of the expense you want to edit
+            const expenseToEdit = expenses[index];
+            if (expenseToEdit) {
+                setEnteredExpense(expenseToEdit.title || "");
+                setEnteredMoney(expenseToEdit.money || "");
+                setEnteredDescription(expenseToEdit.description || "");
+                setSelectedCategory(expenseToEdit.category || "");
+            }
         }
-      }
-      
-    
+    }
+
+
     return (
         <div className={styles.container}>
             <h1>EXPENSES</h1>
@@ -227,21 +227,24 @@ function StartingPAge() {
                     Add Expense
                 </button>
             </form>
-            <div>
-                <h2 >Expenses Added</h2>
+            <div className="expenses-list">
+                <h2>Expenses Added</h2>
                 <ul>
                     {expenses.map((expense, index) => (
-                        <li key={index}>
-                            <strong>Title:</strong> {expense.title},&nbsp;
-                            <strong>Amount Spent:</strong> {expense.money},&nbsp;
-                            <strong>Description:</strong> {expense.description},&nbsp;
-                            <strong>Category:</strong> {expense.category}<br />
-                            <button onClick={() => handleEditClick(index)} type="button" class="btn btn-warning">Edit</button>{'   '}
-                            <button onClick={() => handleExpenseDelete(expense.id)} type="button" class="btn btn-danger">Delete</button>
+                        <li key={index} className="expense-item">
+                            <div className="expense-details">
+                                <strong>Title:</strong> {expense.title},&nbsp;
+                                <strong>Amount Spent:</strong> {expense.money},&nbsp;
+                                <strong>Description:</strong> {expense.description},&nbsp;
+                                <strong>Category:</strong> {expense.category}
+                            </div>
+                            <button onClick={() => handleEditClick(index)} className="btn btn-warning">Edit</button>
+                            <button onClick={() => handleExpenseDelete(expense.id)} className="btn btn-danger">Delete</button>
                         </li>
                     ))}
                 </ul>
             </div>
+
         </div>
     );
 }
