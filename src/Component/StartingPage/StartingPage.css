@@ -1,242 +1,246 @@
 /* StartingPage.css */
 html {
-    height: 100%;
-    background: #6441A5; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
+  height: 100%;
+  background: #6441a5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #6441a5,
+    #2a0845
+  ); /* Chrome 10-25, Safari 5.1-6 */
 }
 
 body {
-    font-family: montserrat, arial, verdana;
-    background: transparent;
+  font-family: montserrat, arial, verdana;
+  background: transparent;
 }
 
 /* Form styles */
 #msform {
-    text-align: center;
-    position: relative;
-    margin-top: 30px;
+  text-align: center;
+  position: relative;
+  margin-top: 30px;
 }
 
 #msform fieldset {
-    background: white;
-    border: 0 none;
-    border-radius: 0px;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    padding: 20px 30px;
-    box-sizing: border-box;
-    width: 80%;
-    margin: 0 10%;
-    position: relative;
+  background: white;
+  border: 0 none;
+  border-radius: 0px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  box-sizing: border-box;
+  width: 80%;
+  margin: 0 10%;
+  position: relative;
 }
 
 /* Hide all except the first fieldset */
 #msform fieldset:not(:first-of-type) {
-    display: none;
+  display: none;
 }
 
 /* Inputs */
 #msform input,
 #msform textarea {
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 0px;
-    margin-bottom: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #161d24;
-    font-size: 13px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: montserrat;
+  color: #161d24;
+  font-size: 13px;
 }
 
 #msform input:focus,
 #msform textarea:focus {
-    -moz-box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    border: 1px solid #ee0979;
-    outline-width: 0;
-    transition: all 0.5s ease-in;
-    -webkit-transition: all 0.5s ease-in;
-    -moz-transition: all 0.5s ease-in;
-    -o-transition: all 0.5s ease-in;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #ee0979;
+  outline-width: 0;
+  transition: all 0.5s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
 }
 
 /* Buttons */
 #msform .action-button {
-    width: 100px;
-    background: #ee0979;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px;
+  width: 100px;
+  background: #ee0979;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
 }
 
 #msform .action-button:hover,
 #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
 }
 
 #msform .action-button-previous {
-    width: 100px;
-    background: #C5C5F1;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px;
+  width: 100px;
+  background: #c5c5f1;
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
 }
 
 #msform .action-button-previous:hover,
 #msform .action-button-previous:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+  box-shadow: 0 0 0 2px white, 0 0 0 3px #c5c5f1;
 }
 
 /* Headings */
 .fs-title {
-    font-size: 24px;
-    text-transform: uppercase;
-    color: #fdfbfb;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    font-weight: bold;
-    position: relative;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #fdfbfb;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+  font-weight: bold;
+  position: relative;
 }
 
 .fs-subtitle {
-    font-weight: normal;
-    font-size: 13px;
-    color: #666;
-    margin-bottom: 20px;
+  font-weight: normal;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 /* Progress bar */
 #progressbar {
-    margin-bottom: 30px;
-    overflow: hidden;
-    counter-reset: step; /* CSS counters to number the steps */
+  margin-bottom: 30px;
+  overflow: hidden;
+  counter-reset: step; /* CSS counters to number the steps */
 }
 
 #progressbar li {
-    list-style-type: none;
-    color: white;
-    text-transform: uppercase;
-    font-size: 9px;
-    width: 33.33%;
-    float: left;
-    position: relative;
-    letter-spacing: 1px;
+  list-style-type: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: 9px;
+  width: 33.33%;
+  float: left;
+  position: relative;
+  letter-spacing: 1px;
 }
 
 #progressbar li:before {
-    content: counter(step);
-    counter-increment: step;
-    width: 24px;
-    height: 24px;
-    line-height: 26px;
-    display: block;
-    font-size: 12px;
-    color: #333;
-    background: white;
-    border-radius: 25px;
-    margin: 0 auto 10px auto;
+  content: counter(step);
+  counter-increment: step;
+  width: 24px;
+  height: 24px;
+  line-height: 26px;
+  display: block;
+  font-size: 12px;
+  color: #333;
+  background: white;
+  border-radius: 25px;
+  margin: 0 auto 10px auto;
 }
 
 /* Progress bar connectors */
 #progressbar li:after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: white;
-    position: absolute;
-    left: -50%;
-    top: 9px;
-    z-index: -1; /* Put it behind the numbers */
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: -50%;
+  top: 9px;
+  z-index: -1; /* Put it behind the numbers */
 }
 
 #progressbar li:first-child:after {
-    /* Connector not needed before the first step */
-    content: none;
+  /* Connector not needed before the first step */
+  content: none;
 }
 
 /* Marking active/completed steps green */
 /* The number of the step and the connector before it = green */
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: #ee0979;
-    color: white;
+  background: #ee0979;
+  color: white;
 }
 
 /* Not relevant to this form */
 .dme_link {
-    margin-top: 30px;
-    text-align: center;
+  margin-top: 30px;
+  text-align: center;
 }
 .dme_link a {
-    background: #FFF;
-    font-weight: bold;
-    color: #ee0979;
-    border: 0 none;
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 5px 25px;
-    font-size: 12px;
+  background: #fff;
+  font-weight: bold;
+  color: #ee0979;
+  border: 0 none;
+  border-radius: 25px;
+  cursor: pointer;
+  padding: 5px 25px;
+  font-size: 12px;
 }
 
 .dme_link a:hover,
 .dme_link a:focus {
-    background: #C5C5F1;
-    text-decoration: none;
+  background: #c5c5f1;
+  text-decoration: none;
 }
 
 .form {
-    max-width: 400px; /* Set the maximum width of the form */
-    margin: 0 auto; /* Center the form horizontally */
-    padding: 20px;
-    border: 10px solid #ccc; /* Add a border around the form */
-    border-radius: 5px; /* Add rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
-  }
-  
-  .formGroup {
-    margin-bottom: 20px; /* Add space between form groups */
-  }
-  
-  .label {
-    display: block; /* Display labels on separate lines */
-    font-weight: bold; /* Make labels bold */
-  }
-  
-  .input {
-    width: 100%; /* Make the input fields take up the full width of their container */
-    padding: 10px;
-    border: 1px solid #ccc; /* Add a border around input fields */
-    border-radius: 5px; /* Add rounded corners to input fields */
-  }
-  
-  /* Additional styling for the button */
-  .btn-success {
-    background-color: #4CAF50; /* Set the button's background color */
-    color: white; /* Set the text color to white */
-    padding: 10px 20px; /* Add padding to the button */
-    border: none; /* Remove the button border */
-    border-radius: 5px; /* Add rounded corners to the button */
-    cursor: pointer; /* Change the cursor to a pointer on hover */
-  }
-  
-  /* Styling for the select element */
-  .form-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* In your CSS file */
+  max-width: 400px; /* Set the maximum width of the form */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  border: 10px solid #ccc; /* Add a border around the form */
+  border-radius: 5px; /* Add rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.formGroup {
+  margin-bottom: 20px; /* Add space between form groups */
+}
+
+.label {
+  display: block; /* Display labels on separate lines */
+  font-weight: bold; /* Make labels bold */
+}
+
+.input {
+  width: 100%; /* Make the input fields take up the full width of their container */
+  padding: 10px;
+  border: 1px solid #ccc; /* Add a border around input fields */
+  border-radius: 5px; /* Add rounded corners to input fields */
+}
+
+/* Additional styling for the button */
+.btn-success {
+  background-color: #4caf50; /* Set the button's background color */
+  color: white; /* Set the text color to white */
+  padding: 10px 20px; /* Add padding to the button */
+  border: none; /* Remove the button border */
+  border-radius: 5px; /* Add rounded corners to the button */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
+
+/* Styling for the select element */
+.form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* In your CSS file */
 .expenses-list {
   margin-top: 20px; /* Add space at the top of the list */
 }
@@ -253,35 +257,33 @@ body {
 }
 
 /* Styling for Edit and Delete buttons */
-.btn-warning, .btn-danger {
+.btn-warning,
+.btn-danger {
   padding: 5px 10px; /* Add padding to the buttons */
   margin-right: 10px; /* Add space between the buttons */
   cursor: pointer; /* Change the cursor to a pointer on hover */
 }
 
-
-
-
 /* In your CSS file */
 .expenses-list {
-    margin-top: 20px; /* Add space at the top of the list */
-  }
-  
-  .expense-item {
-    border: 5px solid #ccc; /* Add a border around each expense item */
-    border-radius: 5px; /* Add rounded corners */
-    padding: 10px; /* Add padding inside each item */
-    margin-bottom: 10px; /* Add space between items */
-  }
-  
-  .expense-details {
-    margin-bottom: 10px; /* Add space between details and buttons */
-  }
-  
-  /* Styling for Edit and Delete buttons */
-  .btn-warning, .btn-danger {
-    padding: 5px 10px; /* Add padding to the buttons */
-    margin-right: 10px; /* Add space between the buttons */
-    cursor: pointer; /* Change the cursor to a pointer on hover */
-  }
-  
+  margin-top: 20px; /* Add space at the top of the list */
+}
+
+.expense-item {
+  border: 5px solid #ccc; /* Add a border around each expense item */
+  border-radius: 5px; /* Add rounded corners */
+  padding: 10px; /* Add padding inside each item */
+  margin-bottom: 10px; /* Add space between items */
+}
+
+.expense-details {
+  margin-bottom: 10px; /* Add space between details and buttons */
+}
+
+/* Styling for Edit and Delete buttons */
+.btn-warning,
+.btn-danger {
+  padding: 5px 10px; /* Add padding to the buttons */
+  margin-right: 10px; /* Add space between the buttons */
+  cursor: pointer; /* Change the cursor to a pointer on hover */
+}
