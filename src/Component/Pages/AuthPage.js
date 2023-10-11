@@ -1,7 +1,10 @@
 import React, { useState, useRef, useContext } from "react";
 import '../Pages/AuthPage.css'
-import { AuthContext } from "../../Store/Auth-Context";
-import { useHistory, NavLink  } from "react-router-dom";
+//import { AuthContext } from "../../Store/Auth-Context";
+import { useHistory, NavLink } from "react-router-dom";
+import { useDispatch , useSelector } from "react-redux";
+import { authActions } from "../../Store/AuthReducer";
+
 
 
 const AuthPage = () => {
@@ -11,9 +14,9 @@ const AuthPage = () => {
     const emailInputRef = useRef();
     const passwordInputRef = useRef();
     const confirmPasswordInputRef = useRef();
-
+    let dispatch = useDispatch()
     let history = useHistory()
-    const authCtx = useContext(AuthContext)
+    // const authCtx = useContext(AuthContext)
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
@@ -26,7 +29,7 @@ const AuthPage = () => {
         const enteredConfirmPassword = confirmPasswordInputRef.current?.value;
 
         setIsLogin(true);
-        if(!isLogin && enteredPassword !== enteredConfirmPassword) {
+        if (!isLogin && enteredPassword !== enteredConfirmPassword) {
             alert('Passwords do not match!')
             return;
         }
@@ -64,8 +67,10 @@ const AuthPage = () => {
                 });
             }
         }).then(data => {
-            authCtx.login(data.idToken);
-            history.replace('/')
+            dispatch(authActions.login(data.idToken));
+            localStorage.setItem('token', data.idToken);
+            // Navigate to the home page ("/") after successful login
+            history.push('/');
         }).catch(err => {
             alert(err.message)
         })
@@ -89,7 +94,7 @@ const AuthPage = () => {
                         <input type='password' id='confirmPassword' ref={confirmPasswordInputRef} required />
                     </div>
                 )}
-                <NavLink className ="forgot-password-button " to="/ForgotPassword">Forgot Password ?</NavLink><br/>
+                <NavLink className="forgot-password-button " to="/ForgotPassword">Forgot Password ?</NavLink><br />
                 <div className="auth-button">
                     {!isLoading && <button class="btn btn-warning" >{isLogin ? 'Login' : "Create Account"}</button>}<br /><br />
                     {isLoading && <p>Pending Request</p>}

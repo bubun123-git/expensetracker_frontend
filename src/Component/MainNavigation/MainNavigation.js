@@ -1,18 +1,18 @@
 import React from 'react';
-import './MainNavigation.css'
+import './MainNavigation.css';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../Store/Auth-Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { authActions } from '../../Store/AuthReducer';
 
 function MainNavigation() {
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
+  const isLoggedIn = useSelector(state => state.authentication.isAuthenticated); // Changed to 'isAuthenticated'
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const LogoutHandler = () => {
-    authCtx.logout();
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
     history.push('/');
-  }
+  };
 
   return (
     <nav className="nav-bar">
@@ -44,7 +44,7 @@ function MainNavigation() {
 
         {isLoggedIn && (
           <li>
-            <button onClick={LogoutHandler}>Logout</button>
+            <button onClick={logoutHandler}>Logout</button>
           </li>
         )}
       </ul>
