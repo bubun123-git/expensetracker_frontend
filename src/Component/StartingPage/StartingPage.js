@@ -157,6 +157,28 @@ function StartingPAge() {
         }
     }
 
+    function downloadCSV() {
+
+        const csvData = "Title,Amount Spent,Description,Category\n" + expenses.map(expense => (
+            `${expense.title},${expense.money},${expense.description},${expense.category}`
+        )).join("\n");
+
+        // Create a Blob with the CSV content
+        const blob = new Blob([csvData], { type: "text/csv" });
+
+        // Create a download link and trigger the download
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "expenses.csv";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+
+        // Clean up the temporary link
+        document.body.removeChild(a);
+    }
+
+
 
     return (
         <div className={styles.container}>
@@ -244,6 +266,11 @@ function StartingPAge() {
                     ))}
                 </ul>
             </div>
+
+            <button type="button" class="btn btn-success" onClick={downloadCSV} className="btn btn-primary">
+                Download Expenses as CSV
+            </button>
+
 
         </div>
     );
