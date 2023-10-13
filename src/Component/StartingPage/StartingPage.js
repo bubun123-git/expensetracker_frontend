@@ -139,6 +139,9 @@ function StartingPAge() {
             });
     }
 
+    // Calculate the total expenses
+    const totalExpenses = expenses.reduce((total, expense) => total + parseFloat(expense.money), 0);
+
     function handleEditClick(index) {
         if (index >= 0 && index < expenses.length) {
             // Check if the index is within bounds
@@ -177,6 +180,8 @@ function StartingPAge() {
         // Clean up the temporary link
         document.body.removeChild(a);
     }
+
+
 
 
 
@@ -262,15 +267,25 @@ function StartingPAge() {
                             </div>
                             <button onClick={() => handleEditClick(index)} className="btn btn-warning">Edit</button>
                             <button onClick={() => handleExpenseDelete(expense.id)} className="btn btn-danger">Delete</button>
+
                         </li>
+
                     ))}
+
                 </ul>
             </div>
+            <div class="mx-auto p-2">
+
+                {totalExpenses > 10000 && (
+                    <button type="button" class="btn btn-success">Activate Premium</button>
+                )}
+
+            </div>
+
 
             <button type="button" class="btn btn-success" onClick={downloadCSV} className="btn btn-primary">
                 Download Expenses as CSV
             </button>
-
 
         </div>
     );
