@@ -73,10 +73,11 @@ function CompleteProfile() {
 
     return (
         <div className="container">
-            <h1>Winners Never Quit, Quitters Never Win</h1>
+           <h1 style={{ color: 'red' }}>Winners Never Quit, Quitters Never Win</h1>
+
             <div>
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="fullName">Full Name:</label>
+                    <label  htmlFor="fullName">Full Name:</label>
                     <input
                         type="text"
                         id="fullName"

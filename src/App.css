@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+/* App.css */
+
+/* Normal Theme */
+.App {
+  background-color: #ffffff; /* Background color for the normal theme */
+  color: #000000; /* Text color for the normal theme */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+}
+
+/* Dark Theme */
+.App.app-dark {
+  background-color: #333333; /* Background color for the dark theme */
+  color: #ffffff; /* Text color for the dark theme */
+}
+
+/* MainNavigation, button, or other elements can also have theme-specific styles here */

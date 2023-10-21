@@ -166,10 +166,10 @@ function StartingPAge() {
             `${expense.title},${expense.money},${expense.description},${expense.category}`
         )).join("\n");
 
-        // Create a Blob with the CSV content
+       
         const blob = new Blob([csvData], { type: "text/csv" });
 
-        // Create a download link and trigger the download
+        
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = "expenses.csv";
@@ -177,7 +177,7 @@ function StartingPAge() {
         document.body.appendChild(a);
         a.click();
 
-        // Clean up the temporary link
+        
         document.body.removeChild(a);
     }
 
